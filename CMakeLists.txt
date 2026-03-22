@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(bgdl_plugin C CXX)
 
-# Ativa o suporte ao VitaSDK
-find_package(VITASDK REQUIRED)
-
 # Define que queremos compilar uma biblioteca compartilhada (SHARED)
 add_library(bgdl_plugin SHARED bgdl_plugin.cpp)
 
