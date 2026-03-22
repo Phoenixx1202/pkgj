@@ -1,0 +1,27 @@
+name: Compilar Plugin SUPRX
+on: 
+  push:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # Usa um container oficial do VitaSDK (já tem tudo instalado!)
+    container: vitasdk/vitasdk:latest 
+    
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+        
+      - name: Compilar com CMake
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          make
+          
+      - name: Salvar o .suprx gerado
+        uses: actions/upload-artifact@v4
+        with:
+          name: bgdl_plugin_suprx
+          path: build/bgdl_plugin.suprx
