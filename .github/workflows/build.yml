@@ -2,10 +2,10 @@ name: Compilar Plugin SUPRX
 on: 
   push:
     branches: [ "main", "master" ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    # Usa um container oficial do VitaSDK (já tem tudo instalado!)
     container: vitasdk/vitasdk:latest 
     
     steps:
@@ -16,7 +16,8 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake ..
+          # A MÁGICA AQUI: Avisando o CMake para usar as ferramentas do PS Vita!
+          cmake -DCMAKE_TOOLCHAIN_FILE="$VITASDK/share/vita.toolchain.cmake" ..
           make
           
       - name: Salvar o .suprx gerado
