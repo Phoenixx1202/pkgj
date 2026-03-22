@@ -336,4 +336,21 @@ void pkgi_start_bgdl(
             url.c_str(),
             (rif_size > 0) ? license_path.c_str() : "",
             type);
+
+extern "C" {
+    int UnityStartVitaDownload(int type, const char* title, const char* url, const unsigned char* rif_data, int rif_size) {
+        try {
+            std::vector<uint8_t> rif;
+            if (rif_data != nullptr && rif_size > 0) {
+                rif.assign(rif_data, rif_data + rif_size);
+            }
+            pkgi_start_bgdl(type, title, url, rif);
+            return 0; // Sucesso
+        } 
+        catch (...) {
+            return -1; // Erro
+        }
+    }
+}    
+    
 }
